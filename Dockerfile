@@ -11,10 +11,10 @@ RUN apt-get install -y scala
 RUN apt-get install -y python
 RUN apt-get install -y python3
 
-# spark 2.2.0 - hadoop 2.6.X
-RUN wget https://people.apache.org/~pwendell/spark-nightly/spark-branch-2.2-bin/spark-2.2.0-SNAPSHOT-2017_05_03_02_33-b5947f5-bin/spark-2.2.0-SNAPSHOT-bin-hadoop2.6.tgz
-RUN tar -xvzf spark-2.2.0-SNAPSHOT-bin-hadoop2.6.tgz -C /usr/local
-RUN cd /usr/local && ln -s ./spark-2.2.0-SNAPSHOT-bin-hadoop2.6 spark
+# spark 2.2.1 - hadoop 2.7.X
+RUN wget https://people.apache.org/~pwendell/spark-nightly/spark-branch-2.2-bin/spark-2.2.1-SNAPSHOT-2017_05_08_06_05-7b9d05a-bin/spark-2.2.1-SNAPSHOT-bin-hadoop2.7.tgz
+RUN tar -xvzf spark-2.2.1-SNAPSHOT-bin-hadoop2.7.tgz -C /usr/local
+RUN cd /usr/local && ln -s ./spark-2.2.1-SNAPSHOT-bin-hadoop2.7 spark
 
 # ENV hadoop
 ENV HADOOP_COMMON_HOME /usr/local/hadoop
@@ -38,5 +38,7 @@ RUN cp $HADOOP_CONF_DIR/slaves $SPARK_HOME/conf/slaves
 COPY bootstrap.sh /etc/bootstrap.sh
 RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
+
+EXPOSE 8042 8088
 
 ENTRYPOINT ["/etc/bootstrap.sh"]
