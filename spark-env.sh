@@ -64,11 +64,7 @@
 # - SPARK_IDENT_STRING  A string representing this instance of spark. (Default: $USER)
 # - SPARK_NICENESS      The scheduling priority for daemons. (Default: 0)
 
-export JAVE_HOME=/usr/java/default
-export SPARK_MASTER_IP=master
-export SPARK_WORKER_CORES=1
-export SPARK_WORKER_INSTANCES=2
-export SPARK_MASTER_PORT=7077
-export SPARK_WORKER_MEMORY=2g
-export MASTER=spark://${SPARK_MASTER_IP}:${SPARK_MASTER_PORT}
-export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop/
+export SPARK_DIST_CLASSPATH=$(hadoop classpath)
+export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
+export SPARK_CLASSPATH=$SPARK_HOME/jars
+export JAVA_HOME=/usr/java/default
