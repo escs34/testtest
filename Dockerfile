@@ -11,10 +11,10 @@ RUN apt-get install -y scala
 RUN apt-get install -y python
 RUN apt-get install -y python3
 
-# spark 2.2.1 - SNAPSHOT - hadoop 2.7.X
-RUN wget https://people.apache.org/~pwendell/spark-nightly/spark-branch-2.2-bin/spark-2.2.1-SNAPSHOT-2017_05_20_02_35-3aad598-bin/spark-2.2.1-SNAPSHOT-bin-hadoop2.7.tgz
-RUN tar -xvzf spark-2.2.1-SNAPSHOT-bin-hadoop2.7.tgz -C /usr/local
-RUN cd /usr/local && ln -s ./spark-2.2.1-SNAPSHOT-bin-hadoop2.7 spark
+# spark 2.3 without Hadoop
+RUN wget https://people.apache.org/~pwendell/spark-nightly/spark-master-bin/latest/spark-2.3.0-SNAPSHOT-bin-without-hadoop.tgz
+RUN tar -xvzf spark-2.3.0-SNAPSHOT-bin-without-hadoop.tgz -C /usr/local
+RUN cd /usr/local && ln -s ./spark-2.3.0-SNAPSHOT-bin-without-hadoop spark
 
 # ENV hadoop
 ENV HADOOP_COMMON_HOME /usr/local/hadoop
@@ -29,8 +29,6 @@ ENV LD_LIBRARY_PATH=/usr/local/hadoop/lib/native/:$LD_LIBRARY_PATH
 ENV SPARK_HOME /usr/local/spark
 ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
-RUN mkdir $SPARK_HOME/yarn-remote-client
-ADD yarn-remote-client $SPARK_HOME/yarn-remote-client
 ADD spark-env.sh $SPARK_HOME/conf/spark-env.sh
 ADD spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
 RUN cp $HADOOP_CONF_DIR/slaves $SPARK_HOME/conf/slaves
