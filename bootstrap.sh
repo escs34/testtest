@@ -19,6 +19,16 @@ if [ -z != $NEW_USER ]
 then
     adduser --disabled-password --gecos ""  "$NEW_USER" > /dev/null
     usermod -aG sudo "$NEW_USER" > /dev/null
+    sudo -u "$NEW_USER" mkdir /home/"$NEW_USER"/.ssh
+    sudo -u "$NEW_USER" chmod 700 /home/"$NEW_USER"/.ssh
+    sudo -u "$NEW_USER" touch /home/"$NEW_USER"/.ssh/authorized_keys
+    sudo -u "$NEW_USER" echo "$RSA_PUBLIC_KEY" >> /home/"$NEW_USER"/.ssh/authorized_keys
+    sudo -u "$NEW_USER" chmod 600 /home/"$NEW_USER"/.ssh/authorized_keys    
+    echo "export PATH=\$PATH:$PATH" >> /home/"$NEW_USER"/.bashrc
+    echo "export HADOOP_HOME=$HADOOP_HOME" >> /home/"$NEW_USER"/.bashrc
+    echo "export SPARK_HOME=$SPARK_HOME" >> /home/"$NEW_USER"/.bashrc
+    echo "export HADOOP_CONF_DIR=$HADOOP_CONF_DIR" >> /home/"$NEW_USER"/.bashrc
+    echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$LD_LIBRARY_PATH" >> /home/"$NEW_USER"/.bashrc
 fi
 
 CMD=${1:-"exit 0"}
