@@ -64,7 +64,9 @@
 # - SPARK_IDENT_STRING  A string representing this instance of spark. (Default: $USER)
 # - SPARK_NICENESS      The scheduling priority for daemons. (Default: 0)
 
-export SPARK_DIST_CLASSPATH=$(hadoop classpath)
+HADOOP_CLASSPATH=/usr/local/hadoop/etc/hadoop/:/usr/local/hadoop/share/hadoop/common/lib/*:/usr/local/hadoop/share/hadoop/common/*:/usr/local/hadoop/share/hadoop/hdfs:/usr/local/hadoop/share/hadoop/hdfs/lib/*:/usr/local/hadoop/share/hadoop/hdfs/*:/usr/local/hadoop/share/hadoop/yarn/lib/*:/usr/local/hadoop/share/hadoop/yarn/*:/usr/local/hadoop/share/hadoop/mapreduce/lib/*:/usr/local/hadoop/share/hadoop/mapreduce/*:/usr/local/hadoop/contrib/capacity-scheduler/*.jar
+
+export SPARK_DIST_CLASSPATH=$HADOOP_CLASSPATH
 export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
 export SPARK_CLASSPATH=$SPARK_HOME/jars
 export JAVA_HOME=/usr/java/default

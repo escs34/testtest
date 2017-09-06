@@ -1,4 +1,4 @@
-FROM kmubigdata/ubuntu-hadoop
+FROM kmubigdata/ubuntu-hadoop:worked
 MAINTAINER kimjeongchul
 
 USER root
@@ -12,9 +12,9 @@ RUN apt-get install -y python
 RUN apt-get install -y python3
 
 # spark 2.3 without Hadoop
-RUN wget https://people.apache.org/~pwendell/spark-nightly/spark-master-bin/latest/spark-2.3.0-SNAPSHOT-bin-without-hadoop.tgz
-RUN tar -xvzf spark-2.3.0-SNAPSHOT-bin-without-hadoop.tgz -C /usr/local
-RUN cd /usr/local && ln -s ./spark-2.3.0-SNAPSHOT-bin-without-hadoop spark
+RUN wget https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0-bin-without-hadoop.tgz
+RUN tar -xvzf spark-2.2.0-bin-without-hadoop.tgz -C /usr/local
+RUN cd /usr/local && ln -s ./spark-2.2.0-bin-without-hadoop spark
 
 # ENV hadoop
 ENV HADOOP_COMMON_HOME /usr/local/hadoop
@@ -30,10 +30,18 @@ ENV SPARK_HOME /usr/local/spark
 ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 ADD spark-env.sh $SPARK_HOME/conf/spark-env.sh
+ADD spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
 ADD slaves $SPARK_HOME/conf/slaves
+
+ADD core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
+ADD mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml
+ADD yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml
+ADD slaves $HADOOP_HOME/etc/hadoop/slaves
 
 COPY bootstrap.sh /etc/bootstrap.sh
 RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
+
+EXPOSE 7077
 
 ENTRYPOINT ["/etc/bootstrap.sh"]
