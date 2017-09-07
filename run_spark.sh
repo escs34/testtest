@@ -34,6 +34,8 @@ do
 
 	if [ $(($numOfContaiers % 2)) != 0 ]; then
 		tempNum=$(($numOfContaiers+1))
+		passwd=$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 10 | head -n 1)
+		echo "student$numOfContaiers passwd = $passwd"
 	fi
 	
 	numOfAddHosts=0	
@@ -54,6 +56,10 @@ do
         done
 
 	$SLAVE_COMMAND --storage-opt size=200G $COMMAND_LAST
+	sudo docker exec student$numOfContaiers bash -c "echo 'root:$passwd' | chpasswd"
+	sudo docker exec student$numOfContaiers bash -c "sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config"
+	sudo docker exec student$numOfContaiers bash -c "service ssh restart"
+	
 	SLAVE_COMMAND=''
 	numOfContaiers=$(($numOfContaiers+1))
 	coreNumber=$(($coreNumber+1))
