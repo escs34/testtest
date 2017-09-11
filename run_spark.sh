@@ -59,7 +59,16 @@ do
 	sudo docker exec student$numOfContaiers bash -c "echo 'root:$passwd' | chpasswd"
 	sudo docker exec student$numOfContaiers bash -c "sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config"
 	sudo docker exec student$numOfContaiers bash -c "service ssh restart"
-	
+
+	sudo docker exec student$numOfContaiers bash -c "echo 'export HADOOP=/usr/local/hadoop' >> ~/.bashrc"
+	sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$HADOOP/bin:\$PATH' >> ~/.bashrc"
+
+        sudo docker exec student$numOfContaiers bash -c "echo 'export HADOOP_HOME=\$HADOOP' >> ~/.bashrc"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export SPARK_HOME=/usr/local/spark' >> ~/.bashrc"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:\$SPARK_HOME/bin:\$SPARK_HOME/sbin' >> ~/.bashrc"
+
+
+	sudo docker exec student$numOfContaiers bash -c "source ~/.bashrc"
 	SLAVE_COMMAND=''
 	numOfContaiers=$(($numOfContaiers+1))
 	coreNumber=$(($coreNumber+1))
