@@ -17,7 +17,7 @@ if [[ -z "$3" ]]; then
 	echo "format is wrong"
 	echo "./add_studnet network-name student-from student-to"
 	echo "ex) ./add_student my-net 1 5"
-	echo "network is my-net, student from 1, student to 5"
+	echo "network is my-net, numOfcore, student from 1, student to 5"
 	exit 0
 fi
 	
@@ -45,13 +45,13 @@ do
        		numOfAddHosts=$(($numOfAddHosts + 1))
 	done
 
-	numOfCores=0
+	numOfCores=1
 	
 
-	SLAVE_COMMAND="$SLAVE_COMMAND --cpuset-cpus=$(($(($numOfContaiers-1))*2))"
+	SLAVE_COMMAND="$SLAVE_COMMAND --cpuset-cpus=$(($(($coreNumber-1))*2))"
         while [ $numOfCores != 2 ];
         do
-                SLAVE_COMMAND="$SLAVE_COMMAND,$(($(($(($numOfContaiers-1))*2))+$numOfCores))"
+                SLAVE_COMMAND="$SLAVE_COMMAND,$(($(($(($coreNumber-1))*2))+$numOfCores))"
                 numOfCores=$(($numOfCores+1))
         done
 
