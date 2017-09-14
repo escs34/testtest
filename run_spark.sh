@@ -26,10 +26,10 @@ numOfContaiers=$2
 while [ $numOfContaiers != $(($3+1)) ];
 do
 	SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) --memory 6g"
-	if [ $numOfContaiers -lt 10 ]; then
-                SLAVE_COMMAND="$SLAVE_COMMAND -p 2210$numOfContaiers:22 -p 2220$numOfContaiers:18080"
+	if [ $portNumber -lt 10 ]; then
+                SLAVE_COMMAND="$SLAVE_COMMAND -p 2210$portNumber:22 -p 2220$portNumber:18080"
         else
-                SLAVE_COMMAND="$SLAVE_COMMAND -p 221$numOfContaiers:22 -p 222$numOfContaiers:18080"
+                SLAVE_COMMAND="$SLAVE_COMMAND -p 221$portNumber:22 -p 222$portNumber:18080"
         fi
 
 	if [ $(($numOfContaiers % 2)) != 0 ]; then
