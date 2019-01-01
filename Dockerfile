@@ -11,10 +11,10 @@ RUN apt-get install -y scala
 RUN apt-get install -y python
 RUN apt-get install -y python3
 
-# spark 2.3 without Hadoop
-RUN wget https://people.apache.org/~pwendell/spark-nightly/spark-master-bin/latest/spark-2.3.0-SNAPSHOT-bin-without-hadoop.tgz
-RUN tar -xvzf spark-2.3.0-SNAPSHOT-bin-without-hadoop.tgz -C /usr/local
-RUN cd /usr/local && ln -s ./spark-2.3.0-SNAPSHOT-bin-without-hadoop spark
+# spark 2.4.0 without Hadoop
+RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-without-hadoop.tgz
+RUN tar -xvzf spark-2.4.0-bin-without-hadoop.tgz -C /usr/local
+RUN cd /usr/local && ln -s ./spark-2.4.0-bin-without-hadoop spark
 
 # ENV hadoop
 ENV HADOOP_COMMON_HOME /usr/local/hadoop
