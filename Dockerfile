@@ -15,6 +15,7 @@ RUN apt-get install -y python3
 RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-without-hadoop.tgz
 RUN tar -xvzf spark-2.4.0-bin-without-hadoop.tgz -C /usr/local
 RUN cd /usr/local && ln -s ./spark-2.4.0-bin-without-hadoop spark
+RUN rm -f / spark-2.4.0-bin-without-hadoop.tgz
 
 # ENV hadoop
 ENV HADOOP_COMMON_HOME /usr/local/hadoop
