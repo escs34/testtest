@@ -15,7 +15,7 @@ RUN apt-get install -y python3
 RUN wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-without-hadoop.tgz
 RUN tar -xvzf spark-2.4.0-bin-without-hadoop.tgz -C /usr/local
 RUN cd /usr/local && ln -s ./spark-2.4.0-bin-without-hadoop spark
-RUN rm -f / spark-2.4.0-bin-without-hadoop.tgz
+RUN rm -f /spark-2.4.0-bin-without-hadoop.tgz
 
 # ENV hadoop
 ENV HADOOP_COMMON_HOME /usr/local/hadoop
@@ -30,9 +30,11 @@ ENV LD_LIBRARY_PATH=/usr/local/hadoop/lib/native/:$LD_LIBRARY_PATH
 ENV SPARK_HOME /usr/local/spark
 ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
+RUN echo "PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.bashrc
+
 ADD spark-env.sh $SPARK_HOME/conf/spark-env.sh
 ADD spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
-RUN cp $HADOOP_CONF_DIR/slaves $SPARK_HOME/conf/slaves
+RUN cp $HADOOP_HOME/etc/hadoop/workers $SPARK_HOME/conf/slaves
 
 COPY bootstrap.sh /etc/bootstrap.sh
 RUN chown root.root /etc/bootstrap.sh
