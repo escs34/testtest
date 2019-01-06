@@ -47,3 +47,7 @@ then
 else
     /bin/bash -c "$*"
 fi
+
+#make folders in hdfs
+hdfs dfs -mkdir /spark/
+hdfs dfs -mkdir /spark/shared-logs
