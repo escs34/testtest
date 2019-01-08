@@ -7,7 +7,7 @@ $ sudo docker run -dit --name [spark-container-name] --network [network-hadoop-c
 $ docker exec -it [spark-container-name] bash
 ```
 
-run spark-shell
+run spark-shell in client mode
 ```bash
 # spark-shell --master yarn --deploy-mode client
 ```
