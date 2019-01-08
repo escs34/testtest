@@ -30,8 +30,6 @@ ENV LD_LIBRARY_PATH=/usr/local/hadoop/lib/native/:$LD_LIBRARY_PATH
 ENV SPARK_HOME /usr/local/spark
 ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
-RUN echo "PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.bashrc
-
 ADD spark-env.sh $SPARK_HOME/conf/spark-env.sh
 ADD spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
 RUN cp $HADOOP_HOME/etc/hadoop/workers $SPARK_HOME/conf/slaves
@@ -39,5 +37,4 @@ RUN cp $HADOOP_HOME/etc/hadoop/workers $SPARK_HOME/conf/slaves
 COPY bootstrap.sh /etc/bootstrap.sh
 RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
-
 ENTRYPOINT ["/etc/bootstrap.sh"]
