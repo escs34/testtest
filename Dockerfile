@@ -38,4 +38,5 @@ RUN cp $HADOOP_HOME/etc/hadoop/workers $SPARK_HOME/conf/slaves
 COPY bootstrap.sh /etc/bootstrap.sh
 RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
+RUN chmod +x run-sparkshell.sh
 ENTRYPOINT ["/etc/bootstrap.sh"]
