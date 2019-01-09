@@ -21,6 +21,8 @@ $ docker exec -it [spark-container-name] bash
 ```
 <br/>
 
+spark-jars.zip이 만들어지고 hdfs로 보내는 과정에서 시간이 걸려서 docker exec하고 조금 기다린 후 run spark-shell 
+
 ### run spark-shell in client mode
 ```bash
 # spark-shell --master yarn --deploy-mode client
