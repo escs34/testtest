@@ -12,15 +12,15 @@ service ssh start
 #hdfs dfs -put $SPARK_HOME/jars /spark
 #echo spark.yarn.jars hdfs:///spark/*.jar > $SPARK_HOME/conf/spark-defaults.conf
 
-#spark.yarn.archive
-apt-get install zip
-cd /usr/local/spark/
-zip /usr/local/spark/spark-jars.zip ./*
-hdfs dfs -put /usr/local/spark/spark-jars.zip /spark/
-
-#make directory in hdfs
+#make directory in hdfs 
 hdfs dfs -mkdir /spark/
 hdfs dfs -mkdir /spark/shared-logs/
+
+#spark.yarn.archive
+apt-get install zip
+cd /usr/local/spark/jars/ && zip /usr/local/spark/spark-jars.zip ./* 
+hdfs dfs -put /usr/local/spark/spark-jars.zip /spark/
+
 
 cp $SPARK_HOME/conf/metrics.properties.template $SPARK_HOME/conf/metrics.properties
 

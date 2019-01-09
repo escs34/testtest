@@ -39,4 +39,6 @@ COPY bootstrap.sh /etc/bootstrap.sh
 RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
 RUN chmod +x /usr/local/spark/run-sparkshell.sh
+
+
 ENTRYPOINT ["/etc/bootstrap.sh"]
