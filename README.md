@@ -7,19 +7,19 @@ $ sudo docker run -dit --name [spark-container-name] --network [network-hadoop-c
 ```
 or
 ```bash
-$ ./run_spark.sh
+$ ./run_spark.sh [spark-container-name]
 ```
 if `./run_spark.sh` fails with Permission denied error,
 ```bash
 # chmod +x run_spark.sh
 ```
-<br/><br/>
+<br/>
 
 ### run container
 ```
 $ docker exec -it [spark-container-name] bash
 ```
-<br/><br/>
+<br/>
 
 ### run spark-shell in client mode
 ```bash
