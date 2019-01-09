@@ -14,12 +14,13 @@ if `./run_spark.sh` fails with Permission denied error,
 # chmod +x run_spark.sh
 ```
 
-run container
+
+### run container
 ```
 $ docker exec -it [spark-container-name] bash
 ```
 
-run spark-shell in client mode
+### run spark-shell in client mode
 ```bash
 # spark-shell --master yarn --deploy-mode client
 ```
