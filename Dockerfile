@@ -32,6 +32,7 @@ ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 ADD spark-env.sh $SPARK_HOME/conf/spark-env.sh
 ADD spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
+ADD run-sparkshell.sh $SPARK_HOME/run-sparkshell.sh
 RUN cp $HADOOP_HOME/etc/hadoop/workers $SPARK_HOME/conf/slaves
 
 COPY bootstrap.sh /etc/bootstrap.sh
