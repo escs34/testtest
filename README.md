@@ -28,6 +28,5 @@ $ docker exec -it [spark-container-name] bash
 or
 ```bash
 # cd /usr/local/spark/
-# chmod +x run-sparkshell.sh
 # ./run-sparkshell.sh
 ```
