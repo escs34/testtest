@@ -40,5 +40,6 @@ RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
 RUN chmod +x /usr/local/spark/run-sparkshell.sh
 
+#export yarn_conf_dir
 
 ENTRYPOINT ["/etc/bootstrap.sh"]
