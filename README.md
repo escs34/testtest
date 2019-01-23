@@ -34,7 +34,7 @@ or
 ### quit spark-shell
 `:quit` or ctrl+D
 
-
+---
 
 Check if master and slaves are connected.
 Lists all running nodes.
