@@ -17,10 +17,9 @@ hdfs dfs -mkdir /spark/
 hdfs dfs -mkdir /spark/shared-logs/
 
 #spark.yarn.archive
-apt-get install zip
-cd /usr/local/spark/jars/ && zip /usr/local/spark/spark-jars.zip ./* 
-hdfs dfs -put /usr/local/spark/spark-jars.zip /spark/
-
+#apt-get install zip
+#cd /usr/local/spark/jars/ && zip /usr/local/spark/spark-jars.zip ./* 
+#hdfs dfs -put /usr/local/spark/spark-jars.zip /spark/
 
 cp $SPARK_HOME/conf/metrics.properties.template $SPARK_HOME/conf/metrics.properties
 
