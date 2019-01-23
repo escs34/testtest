@@ -3,11 +3,11 @@
 ubuntu 16.04 hadoop 3.1.1 spark 2.4.0
 
 ```bash
-$ sudo docker run -dit --name [spark-container-name] --network [network-hadoop-container-used] [image-name] /bin/bash
+$ sudo docker run -dit --name [spark-container-name] --network [network-hadoop-container-is-connected] [image-name] /bin/bash
 ```
 or
 ```bash
-$ ./run_spark.sh [spark-container-name]
+$ ./run_spark.sh [network-name] [spark-container-name]
 ```
 if `./run_spark.sh` fails with Permission denied error,
 ```bash
@@ -20,8 +20,6 @@ if `./run_spark.sh` fails with Permission denied error,
 $ docker exec -it [spark-container-name] bash
 ```
 <br/>
-
-spark-jars.zip이 만들어지고 hdfs로 보내는 과정에서 시간이 걸려서 docker exec하고 조금 기다린 후 run spark-shell 
 
 ### run spark-shell in client mode
 ```bash
