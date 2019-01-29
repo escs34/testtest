@@ -45,7 +45,7 @@ Lists all running nodes.
 
 if spark-shell gets stuck, check running applications and kill unnecessary ones.
 ```bash
-# yarn application list
+# yarn application -list
 # yarn application -kill [application-id]
 ```
 
