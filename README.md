@@ -60,3 +60,8 @@ install sbt which is a build tool.<br/>
 # sudo apt-get install sbt
 ```
 
+
+if `sudo apt-get update` fails with `E: The method driver /usr/lib/apt/methods/https could not be found.`
+```bash
+# sudo apt-get install apt-transport-https
+```
