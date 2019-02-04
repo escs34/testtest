@@ -49,6 +49,8 @@ if spark-shell gets stuck, check running applications and kill unnecessary ones.
 # yarn application -kill [application-id]
 ```
 
+---
+
 
 install sbt which is a build tool.<br/>
 [sbt install](https://www.scala-sbt.org/1.0/docs/Installing-sbt-on-Linux.html)
@@ -59,6 +61,8 @@ install sbt which is a build tool.<br/>
 # sudo apt-get update  
 # sudo apt-get install sbt
 ```
+
+---
 
 
 if `sudo apt-get update` fails with `E: The method driver /usr/lib/apt/methods/https could not be found.`
