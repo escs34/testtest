@@ -40,6 +40,9 @@ RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
 RUN chmod +x /usr/local/spark/run-sparkshell.sh
 
+# Spark Web UI, History Server Port
+EXPOSE 8080 18080
+
 #export yarn_conf_dir
 
 ENTRYPOINT ["/etc/bootstrap.sh"]
