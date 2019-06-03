@@ -78,8 +78,8 @@ do
         numOfSlaves=0
         while [ $numOfSlaves != 6 ];
         do
-                sudo docker exec student$numOfContaiers bash -c "echo 'export  $SLAVE$(($numOfAddHosts + 1))' >> /usr/local/hadoop/etc/hadoop/workers"
-                sudo docker exec student$numOfContaiers bash -c "echo 'export  $SLAVE$(($numOfAddHosts + 1))' >> /usr/local/spark/conf/slaves"
+                sudo docker exec student$numOfContaiers bash -c "echo '$SLAVE$(($numOfSlaves + 1))' >> /usr/local/hadoop/etc/hadoop/workers"
+                sudo docker exec student$numOfContaiers bash -c "echo '$SLAVE$(($numOfSlaves + 1))' >> /usr/local/spark/conf/slaves"
                 numOfSlaves=$(($numOfSlaves + 1))
         done
         
