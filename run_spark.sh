@@ -9,6 +9,7 @@ IP="10.40.0."
 
 numOfContaiers=1
 numOfAddHosts=1
+numOfSlaves=1
 coreNumber=1
 portNumber=1
 masterIP=""
@@ -72,7 +73,17 @@ do
         sudo docker exec student$numOfContaiers bash -c "source ~/.bashrc"
 
         sudo docker exec student$numOfContaiers bash -c "cp /etc/hosts ~/hosts.new ; sed -i '\$d' ~/hosts.new ; cp -f ~/hosts.new /etc/hosts ; rm ~/hosts.new"
+        sudo docker exec student$numOfContaiers bash -c "sed -i '1d' /usr/local/hadoop/etc/hadoop/workers ; sed -i '1d' /usr/local/spark/conf/slaves"
+        sudo docker exec student$numOfContaiers bash -c 
 
+        numOfSlaves=0
+        while [ $numOfSlaves != 6 ];
+        do
+                sudo docker exec student$numOfContaiers bash -c "echo 'export  $SLAVE$(($numOfAddHosts + 1))' >> /usr/local/hadoop/etc/hadoop/workers"
+                sudo docker exec student$numOfContaiers bash -c "echo 'export  $SLAVE$(($numOfAddHosts + 1))' >> /usr/local/spark/conf/slaves"
+                numOfSlaves=$(($numOfSlaves + 1))
+        done
+        
         SLAVE_COMMAND=''
         numOfContaiers=$(($numOfContaiers+1))
         coreNumber=$(($coreNumber+1))
