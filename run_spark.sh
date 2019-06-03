@@ -74,7 +74,6 @@ do
 
         sudo docker exec student$numOfContaiers bash -c "cp /etc/hosts ~/hosts.new ; sed -i '\$d' ~/hosts.new ; cp -f ~/hosts.new /etc/hosts ; rm ~/hosts.new"
         sudo docker exec student$numOfContaiers bash -c "sed -i '1d' /usr/local/hadoop/etc/hadoop/workers ; sed -i '1d' /usr/local/spark/conf/slaves"
-        sudo docker exec student$numOfContaiers bash -c 
 
         numOfSlaves=0
         while [ $numOfSlaves != 6 ];
