@@ -14,19 +14,20 @@ coreNumber=1
 portNumber=1
 masterIP=""
 
-if [[ -z "$3" ]]; then
+if [[ -z "$4" ]]; then
         echo "format is wrong"
         echo "./add_studnet network-name student-from student-to"
-        echo "ex) ./add_student my-net 1 5"
-        echo "network is my-net, student from 1, student to 5"
+        echo "ex) ./add_student my-net 1 10 5"
+        echo "network is my-net, student from 1, student to 10, 1 master 4 slaves"
         exit 0
 fi
 
 
 numOfContaiers=$2
+sparkGroup=$4
 while [ $numOfContaiers != $(($3+1)) ];
 do
-        SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) --memory 2.5g"
+        SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) --memory 2560m"
         if [ $portNumber -lt 10 ]; then
                 SLAVE_COMMAND="$SLAVE_COMMAND -p 2210$portNumber:22 -p 2220$portNumber:8080 -p 2230$portNumber:18080"
         else
@@ -40,7 +41,7 @@ do
         fi
 
         numOfAddHosts=0
-        while [ $numOfAddHosts != 6 ];
+        while [ $numOfAddHosts != $sparkGroup ];
         do
                 if [ $numOfAddHosts != 0 ]; then
                         SLAVE_COMMAND="$SLAVE_COMMAND $ADDHOST $SLAVE$(($numOfAddHosts)):$IP$(($tempNum + $numOfAddHosts))"
@@ -76,7 +77,7 @@ do
         sudo docker exec student$numOfContaiers bash -c "sed -i '1d' /usr/local/hadoop/etc/hadoop/workers ; sed -i '1d' /usr/local/spark/conf/slaves"
 
         numOfSlaves=0
-        while [ $numOfSlaves != 6 ];
+        while [ $numOfSlaves != $(($sparkGroup - 1)) ];
         do
                 sudo docker exec student$numOfContaiers bash -c "echo '$SLAVE$(($numOfSlaves + 1))' >> /usr/local/hadoop/etc/hadoop/workers"
                 sudo docker exec student$numOfContaiers bash -c "echo '$SLAVE$(($numOfSlaves + 1))' >> /usr/local/spark/conf/slaves"
