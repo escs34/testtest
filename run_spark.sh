@@ -67,7 +67,7 @@ do
         sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:\$SPARK_HOME/bin:\$SPARK_HOME/sbin' >> ~/.bashrc"
 
         sudo docker exec student$numOfContaiers bash -c "echo 'export JAVA_HOME=/usr/java/default' >> ~/.bashrc"
-        sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:\$JAVA_HOME/bin' >> ~/.bashrc'"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:\$JAVA_HOME/bin' >> ~/.bashrc"
         sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:/usr/share/sbt/bin' >> ~/.bashrc"
 
         sudo docker exec student$numOfContaiers bash -c "source ~/.bashrc"
