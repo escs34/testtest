@@ -61,14 +61,23 @@ do
         sudo docker exec student$numOfContaiers bash -c "service ssh restart"
 
         sudo docker exec student$numOfContaiers bash -c "echo 'export HADOOP=/usr/local/hadoop' >> ~/.bashrc"
-        sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$HADOOP/bin:\$PATH' >> ~/.bashrc"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:\$HADOOP/bin:\$HADOOP_HOME/sbin' >> ~/.bashrc"
 
         sudo docker exec student$numOfContaiers bash -c "echo 'export HADOOP_HOME=\$HADOOP' >> ~/.bashrc"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export HADOOP_COMMON_HOME=\$HADOOP_HOME' >> ~/.bashrc"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export HADOOP_HDFS_HOME=\$HADOOP_HOME' >> ~/.bashrc"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export HADOOP_MAPRED_HOME=\$HADOOP_HOME' >> ~/.bashrc"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export HADOOP_YARN_HOME=\$HADOOP_HOME' >> ~/.bashrc"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export HADOOP_CONF_DIR=\$HADOOP_HOME/etc/hadoop' >> ~/.bashrc"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export YARN_CONF_DIR=\$HADOOP_HOME/etc/hadoop' >> ~/.bashrc"
+        sudo docker exec student$numOfContaiers bash -c "echo 'export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/usr/local/hadoop/lib/native' >> ~/.bashrc"
+     
         sudo docker exec student$numOfContaiers bash -c "echo 'export SPARK_HOME=/usr/local/spark' >> ~/.bashrc"
         sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:\$SPARK_HOME/bin:\$SPARK_HOME/sbin' >> ~/.bashrc"
 
         sudo docker exec student$numOfContaiers bash -c "echo 'export JAVA_HOME=/usr/java/default' >> ~/.bashrc"
         sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:\$JAVA_HOME/bin' >> ~/.bashrc"
+        
         sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:/usr/share/sbt/bin' >> ~/.bashrc"
 
         sudo docker exec student$numOfContaiers bash -c "source ~/.bashrc"
