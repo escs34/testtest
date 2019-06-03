@@ -27,7 +27,13 @@ numOfContaiers=$2
 sparkGroup=$4
 while [ $numOfContaiers != $(($3+1)) ];
 do
-        SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 2560m"
+
+        if [ $(($numOfContaiers % 6)) == 1 ]; then
+                SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 4096m"
+        else
+                SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 2560m"
+        fi
+        
         if [ $portNumber -lt 10 ]; then
                 SLAVE_COMMAND="$SLAVE_COMMAND -p 2210$portNumber:22 -p 2220$portNumber:8080 -p 2230$portNumber:18080"
         else
