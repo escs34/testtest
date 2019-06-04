@@ -28,10 +28,10 @@ sparkGroup=$4
 while [ $numOfContaiers != $(($3+1)) ];
 do
 
-        if [ $(($numOfContaiers % 6)) == 1 ]; then
-                SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 4096m"
+        if [ $(($numOfContaiers % $sparkGroup)) == 1 ]; then
+                SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 6144m --cpu-shares 3072"
         else
-                SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 2560m"
+                SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 3072m --cpu-shares 1536"
         fi
         
         if [ $portNumber -lt 10 ]; then
@@ -40,7 +40,7 @@ do
                 SLAVE_COMMAND="$SLAVE_COMMAND -p 221$portNumber:22 -p 222$portNumber:8080 -p 223$portNumber:18080"
         fi
 
-        if [ $(($numOfContaiers % 6)) == 1 ]; then
+        if [ $(($numOfContaiers % $sparkGroup)) == 1 ]; then
                 tempNum=$(($numOfContaiers+1))
                 passwd=$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 10 | head -n 1)
                 echo "student$numOfContaiers passwd = $passwd"
@@ -58,8 +58,6 @@ do
                         numOfAddHosts=$(($numOfAddHosts + 1))
                 fi
         done
-
-        SLAVE_COMMAND="$SLAVE_COMMAND --cpu-shares 1024"
 
         $SLAVE_COMMAND $COMMAND_LAST
         sudo docker exec student$numOfContaiers bash -c "echo 'root:$passwd' | chpasswd"
