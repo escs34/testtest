@@ -29,15 +29,15 @@ while [ $numOfContaiers != $(($3+1)) ];
 do
 
         if [ $(($numOfContaiers % $sparkGroup)) == 1 ]; then
-                SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 6144m --cpu-shares 3072"
+                SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 8192m --cpu-shares 4096"
         else
-                SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 3072m --cpu-shares 1536"
+                SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 4096m --cpu-shares 2048"
         fi
-        
-        if [ $portNumber -lt 10 ]; then
-                SLAVE_COMMAND="$SLAVE_COMMAND -p 2210$portNumber:22 -p 2220$portNumber:8080 -p 2230$portNumber:18080"
+
+        if [ $numOfContaiers -lt 10 ]; then
+                SLAVE_COMMAND="$SLAVE_COMMAND -p 2210$numOfContaiers:22 -p 2220$numOfContaiers:8080 -p 2230$numOfContaiers:18080"
         else
-                SLAVE_COMMAND="$SLAVE_COMMAND -p 221$portNumber:22 -p 222$portNumber:8080 -p 223$portNumber:18080"
+                SLAVE_COMMAND="$SLAVE_COMMAND -p 221$numOfContaiers:22 -p 222$numOfContaiers:8080 -p 223$numOfContaiers:18080"
         fi
 
         if [ $(($numOfContaiers % $sparkGroup)) == 1 ]; then
@@ -59,6 +59,8 @@ do
                 fi
         done
 
+        #SLAVE_COMMAND="$SLAVE_COMMAND --cpu-shares 4096"
+
         $SLAVE_COMMAND $COMMAND_LAST
         sudo docker exec student$numOfContaiers bash -c "echo 'root:$passwd' | chpasswd"
         sudo docker exec student$numOfContaiers bash -c "sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config"
@@ -75,13 +77,13 @@ do
         sudo docker exec student$numOfContaiers bash -c "echo 'export HADOOP_CONF_DIR=\$HADOOP_HOME/etc/hadoop' >> ~/.bashrc"
         sudo docker exec student$numOfContaiers bash -c "echo 'export YARN_CONF_DIR=\$HADOOP_HOME/etc/hadoop' >> ~/.bashrc"
         sudo docker exec student$numOfContaiers bash -c "echo 'export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/usr/local/hadoop/lib/native' >> ~/.bashrc"
-     
+
         sudo docker exec student$numOfContaiers bash -c "echo 'export SPARK_HOME=/usr/local/spark' >> ~/.bashrc"
         sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:\$SPARK_HOME/bin:\$SPARK_HOME/sbin' >> ~/.bashrc"
 
         sudo docker exec student$numOfContaiers bash -c "echo 'export JAVA_HOME=/usr/java/default' >> ~/.bashrc"
         sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:\$JAVA_HOME/bin' >> ~/.bashrc"
-        
+
         sudo docker exec student$numOfContaiers bash -c "echo 'export PATH=\$PATH:/usr/share/sbt/bin' >> ~/.bashrc"
 
         sudo docker exec student$numOfContaiers bash -c "source ~/.bashrc"
