@@ -36,7 +36,7 @@ do
         
         ##port forwarding for ssh only master containers
         if [ $(($numOfContaiers % $sparkGroup)) == 1 ]; then
-                if [ $numOfContaiers -lt 10 ]; then
+                if [ $(($numOfContaiers / $sparkGroup + 1)) -lt 10 ]; then
                         SLAVE_COMMAND="$SLAVE_COMMAND -p 2210$(($numOfContaiers / $sparkGroup + 1)):22"
                 else
                         SLAVE_COMMAND="$SLAVE_COMMAND -p 221$(($numOfContaiers / $sparkGroup + 1)):22"
