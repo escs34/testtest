@@ -33,12 +33,20 @@ do
         else
                 SLAVE_COMMAND="$STUDENT_FRONT student$numOfContaiers --network $1 --ip $IP$(($numOfContaiers+1)) -m 4096m --cpu-shares 2048"
         fi
-
-        if [ $numOfContaiers -lt 10 ]; then
-                SLAVE_COMMAND="$SLAVE_COMMAND -p 2210$numOfContaiers:22 -p 2220$numOfContaiers:8080 -p 2230$numOfContaiers:18080"
-        else
-                SLAVE_COMMAND="$SLAVE_COMMAND -p 221$numOfContaiers:22 -p 222$numOfContaiers:8080 -p 223$numOfContaiers:18080"
+        
+        ##port forwarding for ssh only master containers
+        if [ $(($numOfContaiers % $sparkGroup)) == 1 ]; then
+                if [ $numOfContaiers -lt 10 ]; then
+                        SLAVE_COMMAND="$SLAVE_COMMAND -p 2210$(($numOfContaiers / $sparkGroup + 1)):22"
+                else
+                        SLAVE_COMMAND="$SLAVE_COMMAND -p 221$(($numOfContaiers / $sparkGroup + 1)):22"
+                fi
         fi
+        #if [ $numOfContaiers -lt 10 ]; then
+        #        SLAVE_COMMAND="$SLAVE_COMMAND -p 2210$numOfContaiers:22 -p 2220$numOfContaiers:8080 -p 2230$numOfContaiers:18080"
+        #else
+        #        SLAVE_COMMAND="$SLAVE_COMMAND -p 221$numOfContaiers:22 -p 222$numOfContaiers:8080 -p 223$numOfContaiers:18080"
+        #fi
 
         if [ $(($numOfContaiers % $sparkGroup)) == 1 ]; then
                 tempNum=$(($numOfContaiers+1))
