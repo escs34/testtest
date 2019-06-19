@@ -2,6 +2,12 @@
 
 ubuntu 16.04 hadoop 3.1.1 spark 2.4.0
 
+before execute `run_spark.sh` you have to create docker network with following command.
+
+```
+docker network create --subnet 10.40.0.0/24 --attachable spark-test
+```
+
 ### run spark
 
 `run_spark.sh` is a shell script for creating groups of spark clusters.
