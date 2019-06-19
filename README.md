@@ -11,7 +11,8 @@ container names are `student${Number}`.
 ```bash
 $ ./run_spark.sh [network-name] [spark-container-start-number] [spark-container-end-number] [number of containers among the cluster group]
 ```
-for example if you want make 10 containers and 5 groups of clusters. Each cluster is consist of 1 master node and 1 worker node.
+for example if you want make 10 containers and 5 groups of clusters. 
+each cluster is consist of 1 master node and 1 worker node.
 ```
 $ ./run_spark.sh test-network 1 10 2
 ```
